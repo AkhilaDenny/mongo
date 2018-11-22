@@ -126,5 +126,42 @@ Heros.viewHero=function(newHeroData){
 		});
 	});
 }
+
+
+Heros.update = function(newHeroData){
+	return new Promise(function(resolve,reject){
+		
+	
+   
+	//create connection to database
+	const connection=mysql.createConnection({
+		host:'localhost',
+		user:'root',
+		database:'heros',
+		password:'ccs#1234'
+	});
+
+	let query=`update hero set superhero='${newHeroData.superhero}',publisher='${newHeroData.publisher}',alter_ego='${newHeroData.alter_ego}',first_appearence='${newHeroData.first_appearence}',characters='${newHeroData.characters}',1,'${new Date()}' where id='${newHeroData.id}'`;
+
+
+	//querying the database for results..
+	connection.query(query,function(err,result,fields){
+    	if(err){
+    		console.log(err);
+    		console.log('ERR :: fetching data from database.');
+    		reject();
+    	}
+    	else
+    	{
+    		resolve();
+    	}
+    });
+});
+
+
+}
+
+
+
      module.exports = Heros;
  
